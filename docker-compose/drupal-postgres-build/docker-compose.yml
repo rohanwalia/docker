@@ -1,0 +1,28 @@
+# create your drupal and postgres config here, based off the last assignment
+version : '3'
+
+services:
+  drupal:
+    build : .
+    image : custom-drupal:8.2
+    ports:
+    - "80:80"
+    volumes :
+    - drupal_modules:/var/www/html/modules
+    - drupal_profiles:/var/www/html/profiles
+    - drupal_themes:/var/www/html/themes
+    - drupal_sites:/var/www/html/sites
+
+  postgressvc:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_PASSWORD=admin
+    volumes :
+    - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal_modules:
+  drupal_profiles:
+  drupal_themes:
+  drupal_sites:
+  drupal-data:
